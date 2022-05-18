@@ -1,0 +1,103 @@
+---
+#type: specs.openrewrite.org/v1beta/recipe
+#name: com.saks.marketplace.AddLicenseHeader
+#displayName: Add custom recipes
+#recipeList:
+#  - org.openrewrite.java.AddLicenseHeader:
+#      licenseText:
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.saks.marketplace.Cleanup
+displayName: Add custom clean up recipes
+recipeList:
+  - org.openrewrite.java.cleanup.AddSerialVersionUidToSerializable
+  - org.openrewrite.java.cleanup.AtomicPrimitiveEqualsUsesGet
+  - org.openrewrite.java.cleanup.BooleanChecksNotInverted
+  - org.openrewrite.java.cleanup.CaseInsensitiveComparisonsDoNotChangeCase
+  - org.openrewrite.java.cleanup.CatchClauseOnlyRethrows
+  - org.openrewrite.java.cleanup.CommonStaticAnalysis
+  - org.openrewrite.java.cleanup.ControlFlowIndentation
+  - org.openrewrite.java.cleanup.CovariantEquals
+  - org.openrewrite.java.cleanup.FinalClass
+  - org.openrewrite.java.cleanup.FinalizeLocalVariables
+  - org.openrewrite.java.cleanup.MethodNameCasing
+  - org.openrewrite.java.cleanup.ModifierOrder
+  - org.openrewrite.java.cleanup.MultipleVariableDeclarations
+  - org.openrewrite.java.cleanup.UseJavaStyleArrayDeclarations
+  - org.openrewrite.java.cleanup.NoDoubleBraceInitialization
+  - org.openrewrite.java.cleanup.RedundantFileCreation
+  - org.openrewrite.java.cleanup.RenameLocalVariablesToCamelCase
+  - org.openrewrite.java.cleanup.UnnecessaryPrimitiveAnnotations
+  - org.openrewrite.java.cleanup.EmptyBlock
+  - org.openrewrite.java.cleanup.RemoveExtraSemicolons
+  - org.openrewrite.java.cleanup.NoFinalizer
+  - org.openrewrite.java.cleanup.UnnecessaryParentheses
+  - org.openrewrite.java.cleanup.RemoveUnusedLocalVariables
+  - org.openrewrite.java.cleanup.RemoveUnusedPrivateMethods
+  - org.openrewrite.java.cleanup.ReplaceDuplicateStringLiterals
+  - org.openrewrite.java.cleanup.SimplifyBooleanExpression
+  - org.openrewrite.java.cleanup.SimplifyBooleanReturn
+  - org.openrewrite.java.cleanup.LambdaBlockToExpression
+  - org.openrewrite.java.cleanup.StaticMethodNotFinal
+  - org.openrewrite.java.cleanup.TypecastParenPad
+  - org.openrewrite.java.cleanup.NoToStringOnStringType
+  - org.openrewrite.java.cleanup.NoValueOfOnStringType
+  - org.openrewrite.java.cleanup.UnnecessaryCloseInTryWithResources
+  - org.openrewrite.java.cleanup.UnnecessaryExplicitTypeArguments
+  - org.openrewrite.java.cleanup.UnnecessaryThrows
+  - org.openrewrite.java.cleanup.UseCollectionInterfaces
+  - org.openrewrite.java.cleanup.NoEmptyCollectionWithRawType
+  - org.openrewrite.java.cleanup.IsEmptyCallOnCollections
+  - org.openrewrite.java.cleanup.StringLiteralEquality
+  - org.openrewrite.java.cleanup.NoEqualityInForCondition
+  - org.openrewrite.java.cleanup.UseDiamondOperator
+  - org.openrewrite.java.cleanup.ExplicitLambdaArgumentTypes
+  - org.openrewrite.java.cleanup.IndexOfChecksShouldUseAStartPosition
+  - org.openrewrite.java.cleanup.UseLambdaForFunctionalInterface
+  - org.openrewrite.java.cleanup.PrimitiveWrapperClassConstructorToValueOf
+  - org.openrewrite.java.cleanup.IndexOfShouldNotCompareGreaterThanZero
+  - org.openrewrite.java.cleanup.IndexOfReplaceableByContains
+  - org.openrewrite.java.cleanup.MinimumSwitchCases
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.saks.marketplace.Format
+displayName: Add custom format recipes
+recipeList:
+  - org.openrewrite.java.format.BlankLines
+  - org.openrewrite.java.format.EmptyNewlineAtEndOfFile
+  - org.openrewrite.java.format.AutoFormat
+  - org.openrewrite.java.format.NormalizeFormat
+  - org.openrewrite.java.format.NormalizeLineBreaks
+  - org.openrewrite.java.format.NormalizeTabsOrSpaces
+  - org.openrewrite.java.format.RemoveTrailingWhitespace
+  - org.openrewrite.java.format.SingleLineComments
+  - org.openrewrite.java.format.Spaces
+  - org.openrewrite.java.format.TabsAndIndents
+  - org.openrewrite.java.format.WrappingAndBraces
+  - org.openrewrite.java.logging.slf4j.ParameterizedLogging
+  - org.openrewrite.java.logging.slf4j.Slf4jLogShouldBeConstant
+  - org.openrewrite.java.logging.PrintStackTraceToLogError
+  - org.openrewrite.java.logging.SystemPrintToLogging:
+      level: debug
+      addLogger: true
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.saks.marketplace.Migrate
+displayName: Add custom migrate recipes
+recipeList:
+  - org.openrewrite.java.migrate.lang.JavaLangAPIs
+  - org.openrewrite.java.migrate.lang.UseMapOf
+  - org.openrewrite.java.migrate.net.JavaNetAPIs
+  - org.openrewrite.java.migrate.sql.JavaSqlAPIs
+  - org.openrewrite.java.migrate.concurrent.JavaConcurrentAPIs
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.saks.marketplace.Testing
+displayName: Add custom testing recipes
+recipeList:
+  - org.openrewrite.java.testing.mockito.CleanupMockitoImports
+  - org.openrewrite.java.testing.mockito.MockUtilsToStatic

@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+        "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<!-- This is a checkstyle configuration file. For descriptions of
+what the following rules do, please see the checkstyle configuration
+page at http://checkstyle.sourceforge.net/config.html -->
+
+<module name="Checker">
+    <module name="BeforeExecutionExclusionFileFilter">
+        <!-- exclude checkstyle check based on the filepath pattern.. -->
+        <property name="fileNamePattern" value="../src/main/generated/.*"/>
+    </module>
+
+    <module name="SuppressionFilter">
+        <!-- suppress checkstyle check based on the the configuration file -->
+        <property name="file" value="${config_loc}/suppressions.xml"/>
+        <property name="optional" value="false"/>
+    </module>
+
+    <module name="FileTabCharacter">
+        <!-- Checks that there are no tab characters ('\t') in the source code. -->
+        <property name="eachLine" value="true"/>
+    </module>
+
+    <module name="FileLength">
+        <!-- Checks for long source files. -->
+        <property name="max" value="1000"/>
+    </module>
+
+    <module name="LineLength">
+        <!-- Checks if a line is too long. -->
+        <property name="max" value="180"/>
+        <property name="severity" value="error"/>
+
+        <!--
+            The default ignore pattern exempts the following elements:
+            - import statements
+            - long URLs inside comments
+        -->
+        <property name="ignorePattern"
+                  value="^(package .*;\s*)|(import .*;\s*)|( *(\*|//).*https?://.*)$"/>
+    </module>
+
+    <module name="NewlineAtEndOfFile">
+        <!-- Checks whether files end with a line separator. -->
+        <property name="lineSeparator" value="lf"/>
+    </module>
+
+    <!-- All Java AST specific tests live under TreeWalker module. -->
+    <module name="TreeWalker">
+        <!-- Checks the style of array type definitions. -->
+        <!-- Ex. use int[] variable vs int variable[] -->
+        <module name="ArrayTypeStyle"/>
+
+        <!-- Finds nested blocks (blocks that are used freely in the code). -->
+        <!-- Ex. using {code...} -->
+        <module name="AvoidNestedBlocks"/>
+
+        <!-- Checks if call to superclass constructor without arguments is present. -->
+        <module name="AvoidNoArgumentSuperConstructorCall"/>
+
+        <!-- Checks that constant names conform to a specified pattern. -->
+        <module name="ConstantNameCheck">
+            <metadata name="altname" value="ConstantName"/>
+            <property name="applyToPublic" value="true"/>
+            <property name="applyToProtected" value="true"/>
+            <property name="applyToPackage" value="true"/>
+            <property name="applyToPrivate" value="false"/>
+            <property name="format" value="^log(ger)?$|^([A-Z][A-Z0-9]*(_[A-Z0-9]+)*|FLAG_.*)$"/>
+            <message key="name.invalidPattern"
+                     value="Variable ''{0}'' should be in ALL_CAPS (if it is a constant) or be private (otherwise)."/>
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Checks cyclomatic complexity against a specified limit. -->
+        <module name="CyclomaticComplexity"/>
+
+        <!-- Checks that the parts of a class, record, or interface declaration appear in the order suggested by the Code Conventions for the Java Programming Language. -->
+        <module name="DeclarationOrder"/>
+
+        <!-- Check that the default is after all the cases in a switch statement. -->
+        <module name="DefaultComesLast"/>
+
+        <!-- Checks for restricted tokens beneath other tokens. -->
+        <!-- Check to produce a violation on a switch statement with no default case: -->
+        <module name="DescendantToken">
+            <property name="tokens" value="LITERAL_SWITCH"/>
+            <property name="maximumDepth" value="2"/>
+            <property name="limitedTokens" value="LITERAL_DEFAULT"/>
+            <property name="minimumNumber" value="1"/>
+        </module>
+
+        <!-- Check to produce a violation on a condition in for which performs no check: -->
+        <module name="DescendantToken">
+            <property name="tokens" value="FOR_CONDITION"/>
+            <property name="limitedTokens" value="EXPR"/>
+            <property name="minimumNumber" value="1"/>
+        </module>
+
+        <!-- check to produce a violation on comparing this with null -->
+        <module name="DescendantToken">
+            <property name="tokens" value="EQUAL,NOT_EQUAL"/>
+            <property name="limitedTokens" value="LITERAL_THIS,LITERAL_NULL"/>
+            <property name="maximumNumber" value="1"/>
+            <property name="maximumDepth" value="1"/>
+            <property name="sumTokenCounts" value="true"/>
+        </module>
+
+        <!-- check to produce a violation on a String literal equality check: -->
+        <module name="DescendantToken">
+            <property name="tokens" value="EQUAL,NOT_EQUAL"/>
+            <property name="limitedTokens" value="STRING_LITERAL"/>
+            <property name="maximumNumber" value="0"/>
+            <property name="maximumDepth" value="1"/>
+        </module>
+
+        <!-- Checks for empty blocks. -->
+        <module name="EmptyBlock"/>
+
+        <!-- Detects empty statements (standalone ";" semicolon). -->
+        <module name="EmptyStatement"/>
+
+        <!-- Checks that classes that either override equals() or hashCode() also overrides the other. -->
+        <module name="EqualsHashCode"/>
+
+        <!-- Checks that any combination of String literals is on the left side of an equals() comparison. -->
+        <module name="EqualsAvoidNull"/>
+
+        <!-- Checks for empty line separators before package, all import declarations, fields, constructors, methods, nested classes, static initializers and instance initializers. -->
+        <module name="EmptyLineSeparator">
+            <property name="allowMultipleEmptyLines" value="false"/>
+            <property name="allowMultipleEmptyLinesInsideClassMembers" value="false"/>
+            <property name="tokens"
+                      value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF, STATIC_INIT,
+                       INSTANCE_INIT, METHOD_DEF, CTOR_DEF"/>
+        </module>
+
+        <!-- Makes sure that utility classes (classes that contain only static methods or fields in their API) do not have a public constructor. -->
+        <module name="HideUtilityClassConstructor"/>
+
+        <!-- <module name="HiddenField"/> -->
+
+        <!-- <module name="FinalParameters"/> -->
+
+        <!-- Checks that local variables that never have their values changed are declared final. -->
+        <module name="FinalLocalVariable"/>
+
+        <!-- Checks for fall-through in switch statements. -->
+        <module name="FallThrough">
+            <!-- Warn about falling through to the next case statement.  Similar to
+            javac -Xlint:fallthrough, but the check is suppressed if a single-line comment
+            on the last non-blank line preceding the fallen-into case contains 'fall through' (or
+            some other variants which we don't publicized to promote consistency).
+            -->
+            <property name="reliefPattern"
+                      value="fall through|Fall through|fallthru|Fallthru|falls through|Falls through|fallthrough|Fallthrough|No break|NO break|no break|continue on"/>
+            <property name="severity" value="error"/>
+        </module>
+
+        <!-- Checks that certain exception types do not appear in a catch statement. -->
+        <module name="IllegalCatch"/>
+
+        <!-- Checks for illegal instantiations where a factory method is preferred. -->
+        <module name="IllegalInstantiation"/>
+
+        <!-- Checks that specified types are not declared to be thrown. -->
+        <module name="IllegalThrows"/>
+
+        <!-- Checks correct indentation of Java code. -->
+        <module name="Indentation"/>
+
+        <!-- Checks for assignments in subexpressions, such as in String s = Integer.toString(i = 2);. -->
+        <module name="InnerAssignment"/>
+
+        <!-- Checks nested (internal) classes/interfaces are declared at the bottom of the primary (top-level) class after all init and static init blocks, method, constructor and field declarations. -->
+        <module name="InnerTypeLast"/>
+
+        <!-- Implements Joshua Bloch, Effective Java, Item 17 - Use Interfaces only to define types. -->
+        <module name="InterfaceIsType"/>
+
+        <!-- Checks that interface type parameter names conform to a specified pattern. -->
+        <module name="InterfaceTypeParameterName"/>
+
+        <!-- Checks that Javadocs are located at the correct position. -->
+        <module name="InvalidJavadocPosition"/>
+
+        <!-- Checks that the Javadoc content begins from the same position for all Javadoc comments in the project. -->
+        <module name="JavadocContentLocationCheck"/>
+
+        <!-- Checks the Javadoc of a method or constructor. -->
+        <module name="JavadocMethod">
+            <property name="severity" value="error"/>
+            <property name="allowMissingParamTags" value="true"/>
+            <property name="allowMissingReturnTag" value="true"/>
+        </module>
+
+        <!-- <module name="JavadocMissingLeadingAsterisk"/> -->
+
+        <!-- <module name="JavadocMissingWhitespaceAfterAsterisk"/> -->
+
+        <!-- Validates Javadoc comments to help ensure they are well formed. -->
+        <module name="JavadocStyle">
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Checks the Javadoc comments for type definitions. -->
+        <module name="JavadocType">
+            <property name="severity" value="error"/>
+        </module>
+
+        <!-- <module name="JavadocVariable"/> -->
+
+        <!-- <module name="LambdaBodyLength"/> -->
+
+        <!-- Checks lambda parameter names. -->
+        <module name="LambdaParameterName"/>
+
+        <!-- Checks for the placement of left curly braces ('{') for code blocks. -->
+        <module name="LeftCurly">
+            <!-- Checks for placement of the left curly brace ('{'). -->
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Checks that local final variable names conform to a specified pattern. -->
+        <module name="LocalFinalVariableName">
+            <!-- Validates identifiers for local final variables against the
+              expression "^[a-z][a-zA-Z0-9]*$". -->
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Checks that local, non-final variable names conform to a specified pattern. -->
+        <module name="LocalVariableName">
+            <!-- Validates identifiers for local variables against the
+              expression "^[a-z][a-zA-Z0-9]*$". -->
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Checks that there are no "magic numbers" where a magic number is a numeric literal that is not defined as a constant. -->
+        <module name="MagicNumber"/>
+
+        <!-- Checks that instance variable names conform to a specified pattern. -->
+        <module name="MethodNameCheck">
+            <!-- Validates identifiers for method names. -->
+            <metadata name="altname" value="MethodName"/>
+            <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$"/>
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Checks the placement of right curly braces ('}') for code blocks. -->
+        <module name="RightCurly">
+            <!-- Checks right curlies on CATCH, ELSE, and TRY blocks are on
+            the same line. e.g., the following example is fine:
+            <pre>
+              if {
+                ...
+              } else
+            </pre>
+            -->
+            <!-- This next example is not fine:
+            <pre>
+              if {
+                ...
+              }
+              else
+            </pre>
+            -->
+            <property name="option" value="same"/>
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Checks the padding between the identifier of a method definition, constructor definition, method call, or constructor invocation; and the left parenthesis of the parameter list. -->
+        <module name="MethodParamPad"/>
+
+        <!-- <module name="MissingCtor"/> -->
+
+        <!-- Verifies that the annotation @Deprecated and the Javadoc tag @deprecated are both present when either of them is present. -->
+        <module name="MissingDeprecated"/>
+
+        <!-- Checks for missing Javadoc comments for a method or constructor. -->
+        <module name="MissingJavadocMethod"/>
+
+        <!-- Checks for missing Javadoc comments in package-info.java files. -->
+        <module name="MissingJavadocPackage"/>
+
+        <!-- Checks for missing Javadoc comments for class, enum, interface, and annotation interface definitions. -->
+        <module name="MissingJavadocType"/>
+
+        <!-- Verifies that the @Override annotation is present when the @inheritDoc javadoc tag is present. -->
+        <module name="MissingOverride"/>
+
+        <!-- Checks that switch statement has a default clause. -->
+        <module name="MissingSwitchDefault"/>
+
+        <!-- Checks that the order of modifiers conforms to the suggestions in the Java Language specification, § 8.1.1, 8.3.1, 8.4.3 and 9.4. -->
+        <module name="ModifierOrder"/>
+
+        <!-- Checks for multiple occurrences of the same string literal within a single file. -->
+        <module name="MultipleStringLiterals"/>
+
+        <!-- Checks that each variable declaration is in its own statement and on its own line. -->
+        <module name="MultipleVariableDeclarations"/>
+
+        <!-- Checks for braces around code blocks. -->
+        <module name="NeedBraces">
+            <property name="severity" value="warning"/>
+            <property name="tokens" value="LITERAL_IF, LITERAL_ELSE, LITERAL_FOR, LITERAL_WHILE, LITERAL_DO"/>
+        </module>
+
+        <!-- Restricts nested for blocks to a specified depth. -->
+        <module name="NestedForDepth">
+            <property name="max" value="3"/>
+        </module>
+
+        <!-- Restricts nested if-else blocks to a specified depth. -->
+        <module name="NestedIfDepth">
+            <property name="max" value="5"/>
+        </module>
+
+        <!-- Restricts nested try-catch-finally blocks to a specified depth. -->
+        <module name="NestedTryDepth"/>
+
+        <!-- Checks that array initialization do not contain a trailing comma. -->
+        <module name="NoArrayTrailingComma"/>
+
+        <!-- Checks that the clone method is not overridden from the Object class. -->
+        <module name="NoClone"/>
+
+        <!--        <module name="NoCodeInFile"/>-->
+
+        <!-- Checks that there is no method finalize with zero parameters. -->
+        <module name="NoFinalizer"/>
+
+        <!-- Checks that chosen statements are not line-wrapped. -->
+        <module name="NoLineWrap"/>
+
+        <!-- Checks that the block tag is followed by description. -->
+        <module name="NonEmptyAtclauseDescription"/>
+
+        <!-- Checks that enum definition does not contain a trailing comma. -->
+        <module name="NoEnumTrailingComma"/>
+
+        <!-- Checks that there is no whitespace after a token. -->
+        <module name="NoWhitespaceAfter">
+            <!-- Checks that there is no whitespace after various unary operators.
+                 Linebreaks are allowed.
+            -->
+            <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS"/>
+            <property name="allowLineBreaks" value="true"/>
+            <property name="severity" value="error"/>
+        </module>
+
+        <!-- Checks that there is no whitespace before a token. -->
+        <module name="NoWhitespaceBefore">
+            <!-- Checks that there is no whitespace before various unary operators.
+                 Linebreaks are allowed.
+            -->
+            <property name="tokens" value="SEMI, DOT, POST_DEC, POST_INC"/>
+            <property name="allowLineBreaks" value="true"/>
+            <property name="severity" value="error"/>
+        </module>
+
+        <!--        <module name="NoWhitespaceBeforeCaseDefaultColon"/>-->
+
+        <!-- Checks the NPATH complexity against a specified limit. -->
+        <module name="NPathComplexity">
+            <property name="max" value="100"/>
+        </module>
+
+        <!-- Checks that there is only one statement per line. -->
+        <module name="OneStatementPerLine"/>
+
+        <!-- Checks that each top-level class, interface, enum or annotation resides in a source file of its own. -->
+        <module name="OneTopLevelClass"/>
+
+        <!-- Checks that the outer type name and the file name match. -->
+        <module name="OuterTypeFilename"/>
+
+        <!-- Checks for the number of types declared at the outer (or root) level in a file. -->
+        <module name="OuterTypeNumber"/>
+
+        <!-- Checks that overloaded methods are grouped together. -->
+        <module name="OverloadMethodsDeclarationOrder"/>
+
+        <!-- Checks that all package annotations are in the package-info.java file. -->
+        <module name="PackageAnnotation"/>
+
+        <!-- Ensures that a class has a package declaration, and (optionally) whether the package name matches the directory name for the source file. -->
+        <module name="PackageDeclaration"/>
+
+        <!-- Checks that package names conform to a specified pattern. -->
+        <module name="PackageName">
+            <!-- Validates identifiers for package names against the
+              supplied expression. -->
+            <!-- Here the default checkstyle rule restricts package name parts to
+              seven characters, this is not in line with common practice at Google.
+            -->
+            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,})*$"/>
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Checks that method parameter names conform to a specified pattern. -->
+        <module name="ParameterName">
+            <!-- Validates identifiers for method parameters against the
+              expression "^[a-z][a-zA-Z0-9]*$". -->
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Checks the number of parameters of a method or constructor. -->
+        <module name="ParameterNumber">
+            <message key="maxParam"
+                     value="Number of parameters had exceeded the parameter limit.
+                      Use builder if this is a constructor, reduce method logic or group parameter before invoking method if this is a method."/>
+
+        </module>
+
+        <!-- Checks the policy on the padding of parentheses; that is whether a space is required after a left parenthesis and before a right parenthesis, or such spaces are forbidden. -->
+        <module name="ParenPad">
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- <module name="PatternVariableName"/> -->
+
+        <!-- Checks for redundant import statements. -->
+        <module name="RedundantImport">
+            <!-- Checks for redundant import statements. -->
+            <property name="severity" value="error"/>
+        </module>
+
+        <!-- Checks for redundant modifiers. -->
+        <module name="RedundantModifier"/>
+
+        <!-- Checks that references to instance variables and methods of the present object are explicitly of the form "this.varName" or "this.methodName(args)" and that those references don't rely on the default behavior when "this." is absent. -->
+        <module name="RequireThis"/>
+
+        <!-- Restricts the number of return statements in methods, constructors and lambda expressions. -->
+        <module name="ReturnCount">
+            <property name="max" value="3"/>
+        </module>
+
+        <!-- <module name="SeparatorWrap"/> -->
+
+        <!-- Checks for over-complicated boolean expressions. -->
+        <module name="SimplifyBooleanExpression"/>
+
+        <!-- Checks for over-complicated boolean return statements. -->
+        <module name="SimplifyBooleanReturn"/>
+
+        <!-- Checks that non-whitespace characters are separated by no more than one whitespace. -->
+        <module name="SingleSpaceSeparator"/>
+
+        <!-- Checks that static, non-final variable names conform to a specified pattern. -->
+        <module name="StaticVariableName">
+            <!-- Validates static, non-final fields against the supplied
+            expression "^[a-z][a-zA-Z0-9]*_?$". -->
+            <property name="format" value="^[a-z][a-zA-Z0-9]*_?$"/>
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Checks that string literals are not used with == or !=. -->
+        <module name="StringLiteralEquality"/>
+
+        <!-- Restricts throws statements to a specified count. -->
+        <module name="ThrowsCount"/>
+
+        <!-- Checks for TO-DO comments. -->
+        <module name="TodoComment">
+            <property name="format" value="(TODO):|(FIXME):|(todo):|(fixme):"/>
+            <message key="todo.match"
+                     value='All TODOs should be named. e.g. "TODO(johndoe): Refactor when v2 is released."'/>
+        </module>
+
+        <!-- Checks the policy on the padding of parentheses for typecasts. -->
+        <module name="TypecastParenPad"/>
+
+        <!-- Checks that type names conform to a specified pattern. -->
+        <module name="TypeNameCheck">
+            <!-- Validates static, final fields against the
+            expression "^[A-Z][a-zA-Z0-9]*$". -->
+            <metadata name="altname" value="TypeName"/>
+            <property name="severity" value="warning"/>
+        </module>
+
+        <!-- Checks if unnecessary parentheses are used in a statement or expression. -->
+        <module name="UnnecessaryParentheses"/>
+
+        <!-- Checks if unnecessary semicolon is in enum definitions. -->
+        <module name="UnnecessarySemicolonInEnumeration"/>
+
+        <!-- Checks if unnecessary semicolon is used in last resource declaration. -->
+        <module name="UnnecessarySemicolonInTryWithResources"/>
+
+        <!-- <module name="UnnecessarySemicolonAfterOuterTypeDeclaration"/> -->
+
+        <!-- Checks if unnecessary semicolon is used after type member declaration. -->
+        <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
+
+        <!-- Checks for unused import statements. -->
+        <module name="UnusedImports"/>
+
+        <!-- Checks that long constants are defined with an upper ell. -->
+        <module name="UpperEll"/>
+
+        <!--        <module name="UnusedLocalVariable"/>-->
+
+        <!-- Checks that a token is followed by whitespace, with the exception that it does not check for whitespace after the semicolon of an empty for iterator. -->
+        <module name="WhitespaceAfter">
+            <!-- Checks that commas, semicolons and typecasts are followed by
+                 whitespace.
+            -->
+            <property name="tokens" value="COMMA, SEMI, TYPECAST"/>
+        </module>
+
+        <!-- Checks that a token is surrounded by whitespace. -->
+        <module name="WhitespaceAround">
+            <!-- Checks that various tokens are surrounded by whitespace.
+                 This includes most binary operators and keywords followed
+                 by regular or curly braces.
+            -->
+            <property name="severity" value="error"/>
+        </module>
+    </module>
+</module>

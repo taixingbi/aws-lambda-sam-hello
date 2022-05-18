@@ -1,0 +1,37 @@
+{
+  "records": [
+    {
+      "eventID": "1",
+      "eventVersion": "1.0",
+      "eventName": "MODIFY",
+      "dynamodb": {
+        "keys": {
+          "id": {
+            "n": "07f9ef29-23c5-4d02-b74f-842541b936e0"
+          }
+        },
+        "newImage": {
+          "product_data" : {"m": {"miraklProductId":{"s": "c43ebfcf-f65d-4669-a6a9-91442e28350d"}, "updateDate":{"s": "2021-12-07T16:30:14.446Z"}, "complexSwatchImage":{"s":""}, "sources":{"l": [{"m": {"providerSource":{"s": "2030"}, "providerSku":{"s": "F1000"}}}]}, "variantGroupCode":{"s": "0400000000001"}, "additionalImages":{"l": []}, "description":{"s": "Simply fresh"}, "upc":{"s":""}, "creationDate":{"s": "2021-08-17T13:46:44.097Z"}, "video":{"s":""}, "modelImage":{"s":""}, "acceptanceStatus":{"s": "ACCEPTED"}, "mainImage":{"s": "https://media-dev-eu-2.mirakl.net/SOURCE/40e72fc2a7c7447aa28909593ccef06eee"}, "productSku":{"s": "strawb-1"}, "synchronizationStatus":{"s": "SYNCHRONIZED"}, "name":{"s": "Fresh Strawberries"}, "attributes":{"m": {"Size":{"s": "ONE SIZE"}, "manufacturerName":{"s": "TEST STORE"}, "Color":{"s": "RED"}, "item_desc_short":{"s": "short description goes here"}, "SkuHexValue":{"s": "000000"}, "sizecode":{"s": "1"}, "vendor_style":{"s": "VENDOR_STYLE"}, "fashion_style_desc":{"s": "ABC123456"}, "manufacturer-name":{"s": "VPN001"}, "productcopy":{"s": "product description goes here"}, "size_desc":{"s": "ONE SIZE"}, "Fur Natural or Dyed":{"s": "Natural"}, "color_code":{"s": "123456"}}}, "category":{"s": "1493646165559"}, "brand":{"s": "Just Fruits"}, "validationStatus":{"s": "VALID"}}},
+          "offer_data":{"m": {"priceAdditionalInfo":{"s": "NotAvailable"}, "totalPrice":{"s": "1024.99"}, "minShippingType":{"s": "STD"}, "discountPrice":{"s": "1024.99"}, "description":{"s": "NotAvailable"}, "shopName":{"s": "Great Clothings"}, "priceRanges":{"s": "1|1324.99"}, "originPrice":{"s": "1324.99"}, "logisticClass":{"s": "INIT"}, "professional":{"s": "true"}, "minShippingZone":{"s": "ML"}, "productSku":{"s": "c43ebfcf-f65d-4669-a6a9-91442e28350d"}, "premium":{"s": "false"}, "price":{"s": "1024.99"}, "shopId":{"s": "2033"}, "minShippingPrice":{"s": "0.00"}, "measurementUnits":{"s": "NotAvailable"}, "availableEndDate":{"s": "NotAvailable"}, "allowQuoteRequests":{"s": "false"}, "discountEndDate":{"s": "NotAvailable"}, "quantity":{"s": "100"}, "availableStartDate":{"s": "NotAvailable"}, "test":{"s": "NotAvailable"}, "minShippingPriceAdditional":{"s": "0.00"}, "active":{"s": "true"}, "leadtimeToShip":{"s": "3"}, "deleted":{"s": "false"}, "fulfillmentCenterCode":{"s": "DEFAULT"}, "channels":{"s": "INIT"}, "offerId":{"s": "2029"}, "favoriteRank":{"s": "NotAvailable"}, "stateCode":{"s": "11"}, "currencyIsoCode":{"s": "USD"}, "discountRanges":{"s": "1|1024.99"}, "discountStartDate":{"s": "NotAvailable"}}},
+          "status": {"s": "RFS_SYNCHRONIZED"},
+          "id": {
+            "n": "07f9ef29-23c5-4d02-b74f-842541b936e0"
+          }
+        },
+        "oldImage": {
+          "product_data" : {"m": {"miraklProductId":{"s": "c43ebfcf-f65d-4669-a6a9-91442e28350d"}, "updateDate":{"s": "2021-12-07T16:30:14.446Z"}, "complexSwatchImage":{"s":""}, "sources":{"l": [{"m": {"providerSource":{"s": "2030"}, "providerSku":{"s": "F1000"}}}]}, "variantGroupCode":{"s": "0400000000001"}, "additionalImages":{"l": []}, "description":{"s": "Simply fresh"}, "upc":{"s":""}, "creationDate":{"s": "2021-08-17T13:46:44.097Z"}, "video":{"s":""},"modelImage":{"s":""}, "acceptanceStatus":{"s": "ACCEPTED"}, "mainImage":{"s": "https://media-dev-eu-2.mirakl.net/SOURCE/40e72fc2a7c7447aa28909593ccef06eee"}, "productSku":{"s": "strawb-1"}, "synchronizationStatus":{"s": "SYNCHRONIZED"}, "name":{"s": "Fresh Strawberries"}, "attributes":{"m": {"Size":{"s": "ONE SIZE"}, "manufacturerName":{"s": "TEST STORE"}, "Color":{"s": "RED"}, "item_desc_short":{"s": "short description goes here"}, "SkuHexValue":{"s": "000000"}, "sizecode":{"s": "1"}, "vendor_style":{"s": "VENDOR_STYLE"}, "fashion_style_desc":{"s": "ABC123456"}, "manufacturer-name":{"s": "VPN001"}, "productcopy":{"s": "product description goes here"}, "size_desc":{"s": "ONE SIZE"}, "Fur Natural or Dyed":{"s": "Natural"}, "color_code":{"s": "123456"}}}, "category":{"s": "1493646165559"}, "brand":{"s": "Just Fruits"}, "validationStatus":{"s": "VALID"}}},
+          "status": {"s": "RFS_SYNCHRONIZED"},
+          "id": {
+            "n": "07f9ef29-23c5-4d02-b74f-842541b936e0"
+          }
+        },
+        "streamViewType": "NEW_AND_OLD_IMAGES",
+        "sequenceNumber": "111",
+        "sizeBytes": 26
+      },
+      "awsRegion": "us-east-1",
+      "eventSourceARN": "arn:aws:dynamodb:us-east-1:195056086334:table/wonderfl-products",
+      "eventSource": "aws:dynamodb"
+    }
+  ]
+}

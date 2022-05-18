@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: lambda test datadog
+
+Parameters:
+  App:
+    Type: String
+    Default: datadog
+    AllowedValues:
+      - datadog
+ 
+  WonderflMPSecurityGroups:
+    Description: The Subnets to be used in specific environments
+    Type: 'AWS::SSM::Parameter::Value<List<String>>'
+    Default: /wonderfl/mp-dev-security-groups
+    AllowedValues:
+      - /wonderfl/mp-dev-security-groups
+      - /wonderfl/mp-qa-security-groups
+      - /wonderfl/mp-prod-security-groups
+      - /wonderfl/mp-preprod-security-groups
+
+  WonderflMPSubnetIDs:
+    Description: The Subnets to be used in specific environments
+    Type: 'AWS::SSM::Parameter::Value<List<String>>'
+    Default: /wonderfl/mp-dev-subnet-id
+    AllowedValues:
+      - /wonderfl/mp-dev-subnet-id
+      - /wonderfl/mp-qa-subnet-id
+      - /wonderfl/mp-prod-subnet-id
+      - /wonderfl/mp-preprod-subnet-id
+
+Resources:
+  MyTestfunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      FunctionName: !Sub "mp-lambda-test-${App}"
+      Description: lambda test datadog
+      Handler: com.saks.marketplace.handler.TestHandler::handleRequest
+      Runtime: java11
+      MemorySize: 1024
+      Timeout: 60
+      VpcConfig:
+        SecurityGroupIds: !Ref WonderflMPSecurityGroups
+        SubnetIds: !Ref WonderflMPSubnetIDs
+
+
